@@ -23395,35 +23395,36 @@ const countriesApi = [
   },
 ];
 
-function createCards() {
-    let card =``;
-    const addCard = document.getElementById("container_cards");
-    for(let i=0; i < countriesApi.length; i++){
-        card += `
-       <div class="col">
-            <div class="card bg-transparent border-light" >
-                <div class="row">
-                    <div class="col-md-6 card-body d-flex flex-column justify-content-evenly">
-                        <h5 class="card-title text-center text-white">${countriesApi[i].name.common}</h5>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex text-white bg-transparent">
-                            <i class="fa-solid fa-earth-americas fs-4 me-3"></i>${countriesApi[i].name.official}</li>
-                            <li class="list-group-item d-flex text-white bg-transparent overflow-auto">
-                            <i class="fa-solid fa-clock fs-4 me-3"></i>${countriesApi[i].timezones}</li>
-                            <li class="list-group-item d-flex text-white bg-transparent">
-                            <i class="fa-solid fa-location-dot fs-3 me-3" style="margin-left: 2px;"></i>
-                            <a href="${countriesApi[i].maps.googleMaps}" target="_blak" class="stretched-link">Google Maps</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6">
-                        <img src="${countriesApi[i].flags.png}" class="card-img-top rounded border" alt="img" height="280">
-                    </div>
-                </div>
-            </div>
-        </div>
-        `;
-    }
-  addCard.innerHTML = card;
-}
-createCards()
+let containerCards = document.getElementById(`container_cards`);
+let fragment = document.createDocumentFragment();
+
+countriesApi.forEach(function(countrie){
+  let div = document.createElement(`div`);
+  div.innerHTML = `
+  <div class="col">
+  <div class="card bg-transparent border-light" >
+      <div class="row">
+          <div class="col-md-6 card-body d-flex flex-column justify-content-evenly">
+              <h5 class="card-title text-center text-white">${countrie.name.common}</h5>
+              <ul class="list-group list-group-flush">
+                  <li class="list-group-item d-flex text-white bg-transparent">
+                  <i class="fa-solid fa-earth-americas fs-4 me-3"></i>${countrie.name.official}</li>
+                  <li class="list-group-item d-flex text-white bg-transparent overflow-auto">
+                  <i class="fa-solid fa-clock fs-4 me-3"></i>${countrie.timezones}</li>
+                  <li class="list-group-item d-flex text-white bg-transparent">
+                  <i class="fa-solid fa-location-dot fs-3 me-3" style="margin-left: 2px;"></i>
+                  <a href="${countrie.maps.googleMaps}" target="_blak" class="stretched-link">Google Maps</a></li>
+              </ul>
+          </div>
+          <div class="col-md-6">
+            <img src="${countrie.flags.png}" class="card-img-top rounded border" alt="img" height="280">
+          </div>
+      </div>
+  </div>
+</div>
+  `;
+  fragment.appendChild(div);
+});
+
+containerCards.appendChild(fragment)
 
